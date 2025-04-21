@@ -1,6 +1,6 @@
 from phrases import latin_phrases
-from word_dict import latin_words
-from grammar import detect_affixes, decline_noun, conjugate_verb
+from words import latin_words
+from Grammar import detect_affixes, decline_noun, conjugate_verb
 
 from random import choice
 
