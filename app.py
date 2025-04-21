@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify
-from Grammar import generate_sentence
+from grammar import generate_sentence
 
 app = Flask(__name__)
 
