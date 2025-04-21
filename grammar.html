@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Latina | Kiwing.org</title>
+  <style>
+    body {
+      font-family: 'Georgia', serif;
+      background: #fdfdfc;
+      padding: 2em;
+      color: #333;
+    }
+    h1, h2 {
+      color: #222;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+      cursor: pointer;
+      background-color: #4e4ec2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-bottom: 20px;
+    }
+    .section {
+      margin-top: 3em;
+    }
+    .output {
+      background: #f1f1f1;
+      padding: 1em;
+      border-radius: 6px;
+    }
+    .meta-line {
+      margin: 0.2em 0;
+      font-size: 0.95em;
+    }
+  </style>
+</head>
+<body>
+  <h1>🌸 Latina — Latin Grammar Analyzer</h1>
+  <p>Generate a random Latin sentence with full grammatical structure and translation.</p>
+
+  <div class="section">
+    <button onclick="generateGrammarSentence()">Generate Sentence</button>
+    <div class="output">
+      <p><strong>Latin:</strong> <span id="latinOutput">—</span></p>
+      <p><strong>English:</strong> <span id="englishOutput">—</span></p>
+      <div id="metaOutput">
+        <p class="meta-line"><em>Subject:</em> —</p>
+        <p class="meta-line"><em>Object:</em> —</p>
+        <p class="meta-line"><em>Verb Infinitive:</em> —</p>
+        <p class="meta-line"><em>Structure:</em> —</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    async function generateGrammarSentence() {
+      const response = await fetch("/grammar/sentence/meta");
+      const data = await response.json();
+
+      document.getElementById("latinOutput").innerText = data.latin;
+      document.getElementById("englishOutput").innerText = data.english;
+
+      const meta = data.meta;
+      document.getElementById("metaOutput").innerHTML = `
+        <p class="meta-line"><em>Subject:</em> ${meta.subject} ${meta.subject_type}</p>
+        <p class="meta-line"><em>Object:</em> ${meta.object} (${meta.object_case})</p>
+        <p class="meta-line"><em>Verb Infinitive:</em> ${meta.verb_infinitive}</p>
+        <p class="meta-line"><em>Structure:</em> ${meta.structure}</p>
+      `;
+    }
+  </script>
+</body>
+</html>
